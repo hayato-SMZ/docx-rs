@@ -277,6 +277,11 @@ impl Docx {
         self
     }
 
+    pub fn add_openxml_contents(mut self, xml: OpenXmlContents)-> Docx{
+        self.document = self.document.add_openxml_contents(xml);
+        self
+    }
+
     pub fn add_structured_data_tag(mut self, t: StructuredDataTag) -> Docx {
         if t.has_numbering {
             // If this document has numbering, set numberings.xml to document_rels.
