@@ -277,7 +277,7 @@ impl Docx {
         self
     }
 
-    pub fn add_openxml_contents(mut self, xml: OpenXmlContents)-> Docx{
+    pub fn add_openxml_contents(mut self, xml: OpenXmlContents) -> Docx {
         self.document = self.document.add_openxml_contents(xml);
         self
     }
@@ -801,6 +801,17 @@ impl Docx {
                                     }
                                 }
                             }
+                        }
+                    }
+                }
+                DocumentChild::OpenXmlContents(openxml) => {
+                    if openxml.draw_data.is_some()
+                        && openxml.as_ref().draw_data.as_ref().unwrap().len() > 0
+                    {
+                        for item in openxml.as_ref().draw_data.as_ref().unwrap() {
+                            images.push((item.id.clone(), format!("media/{}.png", item.id)));
+                            let b = std::mem::take(&mut item.image.clone());
+                            image_bufs.push((item.id.clone(), b));
                         }
                     }
                 }
