@@ -216,13 +216,19 @@ impl Document {
         self
     }
 
-    pub fn columns(mut self, col: usize) -> Self{
+    pub fn columns(mut self, col: usize) -> Self {
         self.section_property.columns = col;
         self
     }
 
-    pub fn add_openxml_contents(mut self, xml: OpenXmlContents) -> Self{
-        self.children.push(DocumentChild::OpenXmlContents(Box::new(xml)));
+    pub fn add_openxml_contents(mut self, xml: OpenXmlContents) -> Self {
+        self.children
+            .push(DocumentChild::OpenXmlContents(Box::new(xml)));
+        self
+    }
+
+    pub fn text_direction(mut self, direction: bool) -> Self {
+        self.section_property.text_direction = direction;
         self
     }
 }
@@ -294,11 +300,11 @@ mod tests {
         );
     }
 
-        #[test]
+    #[test]
     fn test_document_cols() {
-        let b = Document::new().columns(2)
+        let b = Document::new()
+            .columns(2)
             .add_paragraph(Paragraph::new().add_run(Run::new().add_text("Hello")))
-
             .build();
         assert_eq!(
             str::from_utf8(&b).unwrap(),
