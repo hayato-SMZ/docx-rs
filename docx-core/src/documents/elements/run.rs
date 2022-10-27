@@ -37,6 +37,7 @@ pub enum RunChild {
     InstrText(Box<InstrText>),
     // For reader
     InstrTextString(String),
+    OMath(Box<OpenXmlContents>),
 }
 
 impl Serialize for RunChild {
@@ -78,6 +79,12 @@ impl Serialize for RunChild {
                 let mut t = serializer.serialize_struct("Shape", 2)?;
                 t.serialize_field("type", "shape")?;
                 t.serialize_field("data", s)?;
+                t.end()
+            }
+            RunChild::OMath(ref r) => {
+                let mut t = serializer.serialize_struct("OMath", 2)?;
+                t.serialize_field("type", "omath")?;
+                t.serialize_field("data", r)?;
                 t.end()
             }
             RunChild::CommentStart(ref r) => {
@@ -156,6 +163,13 @@ impl Run {
     pub fn add_image(mut self, pic: Pic) -> Run {
         self.children
             .push(RunChild::Drawing(Box::new(Drawing::new().pic(pic))));
+        self
+    }
+
+    pub fn add_math_text(mut self, xml: &str) -> Run {
+        let mut openxml = OpenXmlContents::new();
+        openxml = openxml.add_xml_text(xml);
+        self.children.push(RunChild::OMath(Box::new(openxml)));
         self
     }
 
