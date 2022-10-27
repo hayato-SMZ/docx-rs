@@ -221,6 +221,11 @@ impl Document {
         self
     }
 
+    pub fn text_direction(mut self, direction: String) -> Self {
+        self.section_property.text_direction = direction;
+        self
+    }
+
     pub fn add_openxml_contents(mut self, xml: OpenXmlContents) -> Self {
         self.children
             .push(DocumentChild::OpenXmlContents(Box::new(xml)));
