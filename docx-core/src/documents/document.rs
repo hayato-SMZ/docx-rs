@@ -231,11 +231,6 @@ impl Document {
             .push(DocumentChild::OpenXmlContents(Box::new(xml)));
         self
     }
-
-    pub fn text_direction(mut self, direction: String) -> Self {
-        self.section_property.text_direction = direction;
-        self
-    }
 }
 
 impl BuildXML for DocumentChild {
