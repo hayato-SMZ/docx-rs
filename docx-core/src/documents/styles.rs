@@ -104,9 +104,18 @@ mod tests {
     }
 
     #[test]
-    fn test_table_style(){
-        let c =
-            Styles::new().add_style(Style::new("Table", StyleType::Table).name("Table Style").table_property(TableProperty::new().set_margins(TableCellMargins::new().margin_left(108, WidthType::Dxa).margin_right(108,WidthType::Dxa))));
+    fn test_table_style() {
+        let c = Styles::new().add_style(
+            Style::new("Table", StyleType::Table)
+                .name("Table Style")
+                .table_property(
+                    TableProperty::new().set_margins(
+                        TableCellMargins::new()
+                            .margin_left(108, WidthType::Dxa)
+                            .margin_right(108, WidthType::Dxa),
+                    ),
+                ),
+        );
         let b = c.build();
         assert_eq!(
             str::from_utf8(&b).unwrap(),
