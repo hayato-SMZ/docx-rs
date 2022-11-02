@@ -115,6 +115,7 @@ impl BuildXML for Box<Drawing> {
                     .wp_extent(&w, &h)
                     .wp_effect_extent("0", "0", "0", "0")
                     .wp_doc_pr("1", "Figure")
+                    .wrap_square("bothSides")
                     .open_wp_c_nv_graphic_frame_pr()
                     .a_graphic_frame_locks(
                         "http://schemas.openxmlformats.org/drawingml/2006/main",
@@ -125,8 +126,7 @@ impl BuildXML for Box<Drawing> {
                     .open_a_graphic_data("http://schemas.openxmlformats.org/drawingml/2006/picture")
                     .add_child(&p.clone())
                     .close()
-                    .close()
-                    .wrap_square("bothSides");
+                    .close();
             }
             Some(DrawingData::TextBox(_t)) => unimplemented!("TODO: Support textBox writer"),
             None => {
