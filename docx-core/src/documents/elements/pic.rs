@@ -126,7 +126,7 @@ impl Pic {
         self
     }
 
-    pub fn overrapping(mut self) -> Pic {
+    pub fn overlapping(mut self) -> Pic {
         self.allow_overlap = true;
         self
     }
