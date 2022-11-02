@@ -69,7 +69,6 @@ impl BuildXML for Box<Drawing> {
                         &format!("{}", p.dist_l),
                         &format!("{}", p.dist_r),
                     );
-                    b = b.wrap_none()
                 } else {
                     b = b
                         .open_wp_anchor(
@@ -106,7 +105,6 @@ impl BuildXML for Box<Drawing> {
                         let y = format!("{}", y as u32);
                         b = b.pos_offset(&y).close();
                     }
-                    b = b.wrap_square("bothSides");
                 }
 
                 let w = format!("{}", p.size.0);
@@ -127,7 +125,8 @@ impl BuildXML for Box<Drawing> {
                     .open_a_graphic_data("http://schemas.openxmlformats.org/drawingml/2006/picture")
                     .add_child(&p.clone())
                     .close()
-                    .close();
+                    .close()
+                    .wrap_square("bothSides");
             }
             Some(DrawingData::TextBox(_t)) => unimplemented!("TODO: Support textBox writer"),
             None => {
