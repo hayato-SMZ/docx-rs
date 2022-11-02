@@ -89,9 +89,14 @@ impl BuildXML for Box<Drawing> {
                         )
                         .open_position_h(&format!("{}", p.relative_from_h));
 
-                    if let DrawingPosition::Offset(x) = p.position_h {
-                        let x = format!("{}", x as u32);
-                        b = b.pos_offset(&x).close();
+                    match p.position_h {
+                        DrawingPosition::Offset(x) => {
+                            let x = format!("{}", x as u32);
+                            b = b.pos_offset(&x).close();
+                        }
+                        DrawingPosition::Align(x) => {
+                            b = b.align(&x.to_string()).close(); //
+                        }
                     }
 
                     b = b.open_position_v(&format!("{}", p.relative_from_v));

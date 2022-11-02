@@ -43,5 +43,6 @@ impl XMLBuilder {
     open!(open_position_h, "wp:positionH", "relativeFrom");
     open!(open_position_v, "wp:positionV", "relativeFrom");
     closed_with_child!(pos_offset, "wp:posOffset");
+    closed_with_child!(align, "wp:align");
     closed!(wrap_none, "wp:wrapNone");
 }
