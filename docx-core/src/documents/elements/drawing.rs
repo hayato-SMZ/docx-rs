@@ -114,8 +114,8 @@ impl BuildXML for Box<Drawing> {
                     // One inch equates to 914400 EMUs and a centimeter is 360000
                     .wp_extent(&w, &h)
                     .wp_effect_extent("0", "0", "0", "0")
-                    .wp_doc_pr("1", "Figure")
                     .wrap_square("bothSides")
+                    .wp_doc_pr("1", "Figure")
                     .open_wp_c_nv_graphic_frame_pr()
                     .a_graphic_frame_locks(
                         "http://schemas.openxmlformats.org/drawingml/2006/main",
