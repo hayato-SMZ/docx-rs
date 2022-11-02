@@ -278,6 +278,7 @@ impl BuildXML for Run {
                 RunChild::CommentEnd(c) => b = b.add_child(c),
                 RunChild::FieldChar(c) => b = b.add_child(c),
                 RunChild::InstrText(c) => b = b.add_child(c),
+                RunChild::OMath(c) => b = b.add_child(c),
                 _ => {}
             }
         }
