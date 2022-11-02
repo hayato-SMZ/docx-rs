@@ -45,4 +45,5 @@ impl XMLBuilder {
     closed_with_child!(pos_offset, "wp:posOffset");
     closed_with_child!(align, "wp:align");
     closed!(wrap_none, "wp:wrapNone");
+    closed_with_child!(wrap_square, "wp:wrapSquare");
 }

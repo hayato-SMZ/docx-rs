@@ -68,7 +68,8 @@ impl BuildXML for Box<Drawing> {
                         &format!("{}", p.dist_b),
                         &format!("{}", p.dist_l),
                         &format!("{}", p.dist_r),
-                    )
+                    );
+                    b = b.wrap_none()
                 } else {
                     b = b
                         .open_wp_anchor(
@@ -105,6 +106,7 @@ impl BuildXML for Box<Drawing> {
                         let y = format!("{}", y as u32);
                         b = b.pos_offset(&y).close();
                     }
+                    b = b.wrap_square("bothSides");
                 }
 
                 let w = format!("{}", p.size.0);
@@ -114,7 +116,6 @@ impl BuildXML for Box<Drawing> {
                     // One inch equates to 914400 EMUs and a centimeter is 360000
                     .wp_extent(&w, &h)
                     .wp_effect_extent("0", "0", "0", "0")
-                    .wrap_none()
                     .wp_doc_pr("1", "Figure")
                     .open_wp_c_nv_graphic_frame_pr()
                     .a_graphic_frame_locks(
