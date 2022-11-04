@@ -19,6 +19,7 @@ pub struct Style {
     pub table_cell_property: TableCellProperty,
     pub based_on: Option<BasedOn>,
     pub next: Option<Next>,
+    pub openxml_styles: Option<OpenXmlContents>,
 }
 
 impl Default for Style {
@@ -36,6 +37,7 @@ impl Default for Style {
             table_cell_property: TableCellProperty::new(),
             based_on: None,
             next: None,
+            openxml_styles: None,
         }
     }
 }
@@ -202,6 +204,24 @@ impl Style {
         self.table_cell_property = p;
         self
     }
+
+    pub fn set_openxml_styles(mut self, style: &str) -> Self {
+        if self.openxml_styles.is_none() {
+            let styles = OpenXmlContents::new().add_xml_text(style);
+            self.openxml_styles = Some(styles);
+            // self.openxml_styles.as_mut().unwrap().add_xml_text(style) // = Some(styles)
+        } else {
+            self.openxml_styles = Some(self.openxml_styles.clone().unwrap().add_xml_text(style));
+        }
+        // match self.openxml_styles {
+        //     Some(styles) => styles.add_xml_text(style),
+        //     _ => {
+        //         let styles = OpenXmlContents::new().add_xml_text(style);
+        //         // self.openxml_styles = Some(styles);
+        //     }
+        // };
+        self
+    }
 }
 
 impl BuildXML for Style {
@@ -226,6 +246,10 @@ impl BuildXML for Style {
 
         if let Some(ref next) = self.next {
             b = b.add_child(next)
+        }
+
+        if let Some(ref xml) = self.openxml_styles {
+            b = b.add_child(xml)
         }
 
         b.add_child(&QFormat::new())
