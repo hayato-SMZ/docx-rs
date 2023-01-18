@@ -112,6 +112,13 @@ impl XMLBuilder {
         self
     }
 
+    pub(crate) fn add_xml_texts(mut self, children: &[String])-> Self{
+        for item in children{
+            self.writer.write(item.as_ref()).expect("should write to xml text")
+        }
+        self
+    }
+
     // Close tag
     pub(crate) fn close(mut self) -> Self {
         self.writer

@@ -116,6 +116,7 @@ mod wp_anchor;
 mod wps_shape;
 mod wps_text_box;
 mod zoom;
+mod openxml_contents;
 
 pub use a_graphic::*;
 pub use a_graphic_data::*;
@@ -235,3 +236,4 @@ pub use wp_anchor::*;
 pub use wps_shape::*;
 pub use wps_text_box::*;
 pub use zoom::*;
+pub use openxml_contents::*;

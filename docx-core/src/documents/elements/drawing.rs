@@ -68,7 +68,7 @@ impl BuildXML for Box<Drawing> {
                         &format!("{}", p.dist_b),
                         &format!("{}", p.dist_l),
                         &format!("{}", p.dist_r),
-                    )
+                    );
                 } else {
                     b = b
                         .open_wp_anchor(

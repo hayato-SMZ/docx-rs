@@ -455,3 +455,16 @@ pub fn line_spacing() -> Result<(), DocxError> {
         .pack(file)?;
     Ok(())
 }
+
+#[test]
+pub fn open_xml() -> Result<(), DocxError>{
+    let path = std::path::Path::new("./tests/output/openxml.docx");
+    let file = std::fs::File::create(&path).unwrap();
+
+    let sample_text = r#"<w:p w:rsidP="00AF2972" w:rsidR="00AF2972" w:rsidRDefault="00AF2972" w:rsidRPr="00B87FDC"><w:r w:rsidRPr="00B87FDC"><w:rPr><w:rFonts w:ascii="ＭＳ 明朝" w:cs="ＭＳ 明朝" w:hAnsi="ＭＳ 明朝" w:hint="eastAsia"/></w:rPr><w:t>⑴</w:t></w:r><w:r w:rsidRPr="00B87FDC"><w:t xml:space="preserve"></w:t></w:r><m:oMath><m:r><m:rPr><m:sty m:val="p"/></m:rPr><w:rPr><w:rFonts w:ascii="Cambria Math" w:hAnsi="Cambria Math"/></w:rPr><m:t>-11+6</m:t></m:r></m:oMath></w:p>"#;
+    
+    let mut doc = Docx::new();
+    doc = doc.add_openxml_contents(OpenXmlContents::new().add_xml_text(sample_text));
+    doc.build().pack(file)?;
+    Ok(())
+}
