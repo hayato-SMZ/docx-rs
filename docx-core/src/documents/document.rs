@@ -23,6 +23,7 @@ pub enum DocumentChild {
     CommentEnd(CommentRangeEnd),
     StructuredDataTag(Box<StructuredDataTag>),
     TableOfContents(Box<TableOfContents>),
+    OpenXmlContents(Box<OpenXmlContents>),
 }
 
 impl Serialize for DocumentChild {
@@ -76,6 +77,12 @@ impl Serialize for DocumentChild {
             DocumentChild::TableOfContents(ref r) => {
                 let mut t = serializer.serialize_struct("TableOfContents", 2)?;
                 t.serialize_field("type", "tableOfContents")?;
+                t.serialize_field("data", r)?;
+                t.end()
+            }
+            DocumentChild::OpenXmlContents(ref r) => {
+                let mut t = serializer.serialize_struct("OpenXmlContents", 2)?;
+                t.serialize_field("type", "openXmlContents")?;
                 t.serialize_field("data", r)?;
                 t.end()
             }
@@ -218,6 +225,11 @@ impl Document {
         self.section_property.text_direction = direction;
         self
     }
+    pub fn add_openxml_contents(mut self, xml: OpenXmlContents) -> Self {
+        self.children
+            .push(DocumentChild::OpenXmlContents(Box::new(xml)));
+        self
+    }
 }
 
 impl BuildXML for DocumentChild {
@@ -231,6 +243,7 @@ impl BuildXML for DocumentChild {
             DocumentChild::CommentEnd(v) => v.build(),
             DocumentChild::StructuredDataTag(v) => v.build(),
             DocumentChild::TableOfContents(v) => v.build(),
+            DocumentChild::OpenXmlContents(v) => v.build(),
         }
     }
 }
