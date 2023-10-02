@@ -10,6 +10,7 @@ use crate::xml_builder::*;
 pub struct Styles {
     doc_defaults: DocDefaults,
     styles: Vec<Style>,
+    xml_styles: Vec<OpenXmlContents>,
 }
 
 impl Styles {
@@ -19,6 +20,12 @@ impl Styles {
 
     pub fn add_style(mut self, style: Style) -> Self {
         self.styles.push(style);
+        self
+    }
+
+    pub fn add_xml_style(mut self, style: &str) -> Self {
+        self.xml_styles
+            .push(OpenXmlContents::new().add_xml_text(style));
         self
     }
 
@@ -66,6 +73,7 @@ impl Default for Styles {
         Self {
             doc_defaults: DocDefaults::new(),
             styles: vec![],
+            xml_styles: vec![],
         }
     }
 }
@@ -78,6 +86,7 @@ impl BuildXML for Styles {
             .add_child(&self.doc_defaults)
             .add_child(&normal)
             .add_children(&self.styles)
+            .add_children(&self.xml_styles)
             .close()
             .build()
     }
@@ -104,9 +113,18 @@ mod tests {
     }
 
     #[test]
-    fn test_table_style(){
-        let c =
-            Styles::new().add_style(Style::new("Table", StyleType::Table).name("Table Style").table_property(TableProperty::new().set_margins(TableCellMargins::new().margin_left(108, WidthType::Dxa).margin_right(108,WidthType::Dxa))));
+    fn test_table_style() {
+        let c = Styles::new().add_style(
+            Style::new("Table", StyleType::Table)
+                .name("Table Style")
+                .table_property(
+                    TableProperty::new().set_margins(
+                        TableCellMargins::new()
+                            .margin_left(108, WidthType::Dxa)
+                            .margin_right(108, WidthType::Dxa),
+                    ),
+                ),
+        );
         let b = c.build();
         assert_eq!(
             str::from_utf8(&b).unwrap(),
