@@ -31,10 +31,12 @@ pub enum XMLElement {
     Highlight,
     VertAlign,
     Bold,
+    Caps,
     RunStyle,
     BoldCs,
     Break,
     Tab,
+    Sym,
     ParagraphStyle,
     ParagraphPropertyChange,
     RunPropertyChange,
@@ -144,6 +146,7 @@ pub enum XMLElement {
     DefaultTabStop,
     RunPropertyDefault,
     AdjustLineHeightInTable,
+    CharacterSpacingControl,
     SectionProperty,
     PageSize,
     PageMargin,
@@ -210,6 +213,7 @@ pub enum WpsXMLElement {
     BodyPr,
     Unsupported,
 }
+
 #[derive(PartialEq, Debug)]
 pub enum VXMLElement {
     Rect,
@@ -256,6 +260,7 @@ impl FromStr for XMLElement {
             "rStyle" => Ok(XMLElement::RunStyle),
             "b" => Ok(XMLElement::Bold),
             "bCs" => Ok(XMLElement::BoldCs),
+            "caps" => Ok(XMLElement::Caps),
             "i" => Ok(XMLElement::Italic),
             "iCs" => Ok(XMLElement::ItalicCs),
             "vanish" => Ok(XMLElement::Vanish),
@@ -362,6 +367,7 @@ impl FromStr for XMLElement {
             "docGrid" => Ok(XMLElement::DocGrid),
             "rPrDefault" => Ok(XMLElement::RunPropertyDefault),
             "adjustLineHeightInTable" => Ok(XMLElement::AdjustLineHeightInTable),
+            "characterSpacingControl" => Ok(XMLElement::CharacterSpacingControl),
             "defaultTabStop" => Ok(XMLElement::DefaultTabStop),
             "divId" => Ok(XMLElement::DivId),
             "div" => Ok(XMLElement::Div),
@@ -370,6 +376,7 @@ impl FromStr for XMLElement {
             "marRight" => Ok(XMLElement::MarginRight),
             "marTop" => Ok(XMLElement::MarginTop),
             "marBottom" => Ok(XMLElement::MarginBottom),
+            "sym" => Ok(XMLElement::Sym),
             "webSettings" => Ok(XMLElement::WebSettings),
             "keepNext" => Ok(XMLElement::KeepNext),
             "keepLines" => Ok(XMLElement::KeepLines),

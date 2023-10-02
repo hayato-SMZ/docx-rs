@@ -1,6 +1,11 @@
 import { DrawingJSON } from "./drawing";
 import { ShapeJSON } from "./shape";
-import { CommentRangeStartJSON, CommentRangeEndJSON, InsertJSONData, DeleteJSONData } from "..";
+import {
+  CommentRangeStartJSON,
+  CommentRangeEndJSON,
+  InsertJSONData,
+  DeleteJSONData,
+} from "..";
 import { BorderType } from "../border";
 import { VertAlignType } from "../run";
 import { FieldChar } from "./bindings/FieldChar";
@@ -37,11 +42,12 @@ export type RunPropertyJSON = {
   underline?: string | null;
   bold?: boolean | null;
   boldCs?: boolean | null;
+  caps?: boolean | null;
   italic?: boolean | null;
   italicCs?: boolean | null;
   vanish?: boolean | null;
   specVanish?: boolean | null;
-  spacing?: number | null;
+  characterSpacing?: number | null;
   textBorder?: TextBorderJSON | null;
   ins?: InsertJSONData | null;
   del?: DeleteJSONData | null;
@@ -50,6 +56,7 @@ export type RunPropertyJSON = {
 
 export type RunChildJSON =
   | TextJSON
+  | SymJSON
   | DeleteTextJSON
   | TabJSON
   | BreakJSON
@@ -65,6 +72,14 @@ export type TextJSON = {
   data: {
     preserveSpace: boolean;
     text: string;
+  };
+};
+
+export type SymJSON = {
+  type: "sym";
+  data: {
+    font: string;
+    char: string;
   };
 };
 
@@ -103,14 +118,14 @@ export type FieldCharJSON = {
 export type InstrTextJSON = {
   type: "instrText";
   data:
-  | {
-    type: "hyperlink";
-    data: InstrHyperlink;
-  }
-  | {
-    type: "toc";
-    data: InstrToC;
-  };
+    | {
+        type: "hyperlink";
+        data: InstrHyperlink;
+      }
+    | {
+        type: "toc";
+        data: InstrToC;
+      };
 };
 
 export type InstrTextStringJSON = {

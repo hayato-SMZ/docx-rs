@@ -125,6 +125,7 @@ impl XMLBuilder {
     // i.e. <w:r ... >
     open!(open_run, "w:r");
     open!(open_run_property, "w:rPr");
+    open!(open_paragraph_borders, "w:pBdr");
     open!(open_run_property_default, "w:rPrDefault");
     // i.e. <w:qFormat ... >
     closed!(q_format, "w:qFormat");
@@ -138,6 +139,13 @@ impl XMLBuilder {
     open!(open_structured_tag_content, "w:sdtContent");
     open!(open_structured_tag_property, "w:sdtPr");
     closed_with_str!(alias, "w:alias");
+
+    closed_paragraph_border_el!(paragraph_border_top, "w:top");
+    closed_paragraph_border_el!(paragraph_border_left, "w:left");
+    closed_paragraph_border_el!(paragraph_border_bottom, "w:bottom");
+    closed_paragraph_border_el!(paragraph_border_right, "w:right");
+    closed_paragraph_border_el!(paragraph_border_between, "w:between");
+    closed_paragraph_border_el!(paragraph_border_bar, "w:bar");
 
     // i.e. <w:outlineLvl ...>
     closed_with_usize!(outline_lvl, "w:outlineLvl");
@@ -245,7 +253,7 @@ impl XMLBuilder {
         mut self,
         before: Option<u32>,
         after: Option<u32>,
-        line: Option<u32>,
+        line: Option<i32>,
         before_lines: Option<u32>,
         after_lines: Option<u32>,
         spacing: Option<LineSpacingType>,
@@ -342,6 +350,7 @@ impl XMLBuilder {
     closed!(tab_with_pos, "w:tab", "w:val", "w:pos");
 
     closed!(br, "w:br", "w:type");
+    closed!(sym, "w:sym", "w:font", "w:char");
     closed!(zoom, "w:zoom", "w:percent");
     closed_with_usize!(default_tab_stop, "w:defaultTabStop");
 
@@ -437,6 +446,7 @@ impl XMLBuilder {
     closed!(ul_trail_space, "w:ulTrailSpace");
     closed!(do_not_expand_shift_return, "w:doNotExpandShiftReturn");
     closed!(adjust_line_height_table, "w:adjustLineHeightInTable");
+    closed!(character_spacing_control,"w:characterSpacingControl","w:val");
     closed!(use_fe_layout, "w:useFELayout");
     closed!(
         compat_setting,
@@ -449,7 +459,7 @@ impl XMLBuilder {
     closed!(keep_next, "w:keepNext");
     closed!(keep_lines, "w:keepLines");
     closed!(page_break_before, "w:pageBreakBefore");
-    closed!(widow_control, "w:widowControl");
+    closed!(widow_control, "w:widowControl", "w:val");
 
     /*
     <w:lvlOverride w:ilvl="0">
@@ -592,7 +602,6 @@ impl XMLBuilder {
 
 #[cfg(test)]
 mod tests {
-
     use super::*;
     #[cfg(test)]
     use pretty_assertions::assert_eq;

@@ -83,9 +83,15 @@ export class Paragraph {
   indent(
     left: number,
     specialIndentKind?: SpecialIndentKind,
-    specialIndentSize?: number
+    specialIndentSize?: number,
+    right?: number
   ) {
-    this.property.indent = { left, specialIndentKind, specialIndentSize };
+    this.property.indent = {
+      left,
+      specialIndentKind,
+      specialIndentSize,
+      right,
+    };
     return this;
   }
 
@@ -97,6 +103,11 @@ export class Paragraph {
 
   lineSpacing(spacing: LineSpacing) {
     this.property.lineSpacing = spacing;
+    return this;
+  }
+
+  characterSpacing(spacing: number) {
+    this.property.runProperty.characterSpacing = spacing;
     return this;
   }
 

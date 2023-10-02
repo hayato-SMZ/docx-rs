@@ -1,7 +1,8 @@
 use serde::Serialize;
+#[cfg(feature = "wasm")]
 use wasm_bindgen::prelude::*;
 
-#[wasm_bindgen]
+#[cfg_attr(feature = "wasm", wasm_bindgen)]
 #[derive(Debug, Clone, PartialEq, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub enum TableBorderPosition {
@@ -13,7 +14,7 @@ pub enum TableBorderPosition {
     InsideV,
 }
 
-#[wasm_bindgen]
+#[cfg_attr(feature = "wasm", wasm_bindgen)]
 #[derive(Debug, Clone, PartialEq, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub enum TableCellBorderPosition {
@@ -25,4 +26,16 @@ pub enum TableCellBorderPosition {
     InsideV,
     Tl2br,
     Tr2bl,
+}
+
+#[cfg_attr(feature = "wasm", wasm_bindgen)]
+#[derive(Debug, Clone, PartialEq, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub enum ParagraphBorderPosition {
+    Left,
+    Right,
+    Top,
+    Bottom,
+    Between,
+    Bar,
 }

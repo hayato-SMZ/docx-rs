@@ -5,6 +5,79 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+
+## docx-wasm@0.0.278-rc23 (21. Aug, 2023)
+
+- escape author in del/ins.
+
+## docx-wasm@0.0.278-rc19 (9. Aug, 2023)
+
+- use i32 for line instead of u32.
+
+## docx-wasm@0.0.278-rc18 (24. Jul, 2023)
+
+- read caps.
+
+## docx-wasm@0.0.278-rc16 (14. Jul, 2023)
+
+- Improve read numbering types.
+
+## docx-wasm@0.0.278-rc15 (23. Jun, 2023)
+
+- Make docGrid Optional in sectionProperty
+
+## docx-wasm@0.0.278-rc14 (23. Jun, 2023)
+
+- Support character spacing in run property
+
+## docx-wasm@0.0.278-rc10 (23. Jun, 2023)
+
+- Support character space control function
+
+## docx-rs@0.4.7 (23. Jun, 2023)
+
+- Support character space control
+- Fix widow_control behavior
+- Support indent right for js
+- [Breaking] make docGrid optional
+- Support `<sym />`
+- Fixed a bug, style.link is not output.
+- Fixed a bug, escape style name.
+- Support `link` in style.
+- fix after contents in toc.
+- Support outline_level in Paragraph and style.
+- Support before/after contents in ToC.
+- Support Toc from instrText.
+- fix #584 Remove `%` from width.
+- fixed a bug, `adjustLineHeightInTable` is not affected in js interface.
+- fix lineRule ts type
+
+
+## docx-wasm@0.0.278-rc8 (23. Jun, 2023)
+
+- Support character space control
+- Fix widow_control behavior
+
+## docx-wasm@0.0.278-rc7 (19. Jun, 2023)
+
+- Support indent right for js
+
+## docx-wasm@0.0.278-rc6 (19. Jun, 2023)
+
+- [Breaking] make docGrid optional
+
+## docx-wasm@0.0.278-rc3 (19. May, 2023)
+
+- Support `<sym />`
+
+## docx-wasm@0.0.278-rc1 (11. Apr, 2023)
+
+- Fixed a bug, style.link is not output.
+
+## docx-wasm@0.0.278-rc0 (27. Mar, 2023)
+
+- Fixed a bug, escape style name.
+
 ## docx-wasm@0.0.277-rc1 (20. Dec, 2022)
 
 - Support `link` in style.

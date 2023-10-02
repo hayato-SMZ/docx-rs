@@ -1,10 +1,10 @@
 use std::io::Read;
+use std::str::FromStr;
 use xml::reader::{EventReader, XmlEvent};
 
 use super::*;
 use crate::reader::{FromXML, ReaderError};
-
-use std::str::FromStr;
+use crate::types::CharacterSpacingValues;
 
 impl FromXML for Settings {
     fn from_xml<R: Read>(reader: R) -> Result<Self, ReaderError> {
@@ -51,6 +51,14 @@ impl FromXML for Settings {
                         }
                         XMLElement::AdjustLineHeightInTable => {
                             settings = settings.adjust_line_height_in_table();
+                        }
+                        XMLElement::CharacterSpacingControl => {
+                            let val = read_val(&attributes);
+                            if let Some(val) = val {
+                                if let Ok(v) = CharacterSpacingValues::from_str(&val) {
+                                    settings = settings.character_spacing_control(v);
+                                }
+                            }
                         }
                         _ => {}
                     }

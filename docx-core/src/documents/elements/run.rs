@@ -26,6 +26,7 @@ impl Default for Run {
 #[derive(Debug, Clone, PartialEq)]
 pub enum RunChild {
     Text(Text),
+    Sym(Sym),
     DeleteText(DeleteText),
     Tab(Tab),
     Break(Break),
@@ -50,6 +51,12 @@ impl Serialize for RunChild {
             RunChild::Text(ref s) => {
                 let mut t = serializer.serialize_struct("Text", 2)?;
                 t.serialize_field("type", "text")?;
+                t.serialize_field("data", s)?;
+                t.end()
+            }
+            RunChild::Sym(ref s) => {
+                let mut t = serializer.serialize_struct("Sym", 2)?;
+                t.serialize_field("type", "sym")?;
                 t.serialize_field("data", s)?;
                 t.end()
             }
@@ -216,6 +223,11 @@ impl Run {
         self
     }
 
+    pub fn add_sym(mut self, sym: Sym) -> Run {
+        self.children.push(RunChild::Sym(sym));
+        self
+    }
+
     pub fn style(mut self, style_id: &str) -> Self {
         self.run_property = self.run_property.style(style_id);
         self
@@ -294,6 +306,7 @@ impl BuildXML for Run {
         for c in &self.children {
             match c {
                 RunChild::Text(t) => b = b.add_child(t),
+                RunChild::Sym(t) => b = b.add_child(t),
                 RunChild::DeleteText(t) => b = b.add_child(t),
                 RunChild::Tab(t) => b = b.add_child(t),
                 RunChild::Break(t) => b = b.add_child(t),
